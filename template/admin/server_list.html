@@ -1,0 +1,132 @@
+{{template "layout1" .}}
+
+{{define "title"}}
+	服务器管理
+{{end}}
+
+{{ define "main_content" }}
+	<table id="dg" class="easyui-datagrid" title=" " url="/api/server/getAll" method="GET" toolbar="#toolbar"
+	       pagination="true"
+	       rownumbers="true" fitColumns="true" singleSelect="true" style="width:100%;height:auto;margin-top:50px;">
+		<thead>
+		<tr>
+			<th data-options="field:'ServerId',width:'51%'">Server ID</th>
+			<th data-options="field:'ServerName',width:'50%'">Server Name</th>
+		</tr>
+		</thead>
+	</table>
+	<div id="toolbar">
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+		   onclick="sendMessage();">发送消息</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+		   onclick="closeServer();">关闭</a>
+	</div>
+
+	<div id="dlg" class="easyui-dialog" style="width:400px"
+	     data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+		<form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+			<div style="margin-bottom:10px">
+				<input name="server_id" class="easyui-textbox" label="服务器ID:"
+				       style="width:100%;margin-bottom:10px;">
+				<br>
+				<input name="message_content" class="easyui-textbox" required="true" label="消息内容:" style="width:100%">
+			</div>
+		</form>
+	</div>
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="doSendMessage();"
+		   style="width:90px">Save</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+		   onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+	</div>
+
+	<script type="text/javascript">
+		let url;
+		let $dg = $('#dg');
+		let $dlg = $('#dlg');
+		let $fm = $('#fm');
+
+		//发送信息
+		function sendMessage() {
+			let row = $dg.datagrid('getSelected');
+			if(row == null){
+				$.messager.show({
+					title: '错误',
+					msg: "无数据选中"
+				});
+				return false;
+			}
+			$dlg.dialog('open').dialog('center').dialog('setTitle', '发送消息');
+			let rowServerId = row['ServerId'];
+			let rowData = {
+				'server_id': rowServerId,
+			};
+			debugger;
+			$fm.form('load', rowData);
+			url = '/api/server/batchSendMessage';
+		}
+
+		//执行发送信息
+		function doSendMessage() {
+			$fm.form('submit', {
+				url: url,
+				onSubmit: function () {
+					return $(this).form('validate');
+				},
+				success: function (data) {
+					let result = eval('(' + data + ')');
+					if(result.code){
+						$.messager.show({
+							title: '错误',
+							msg: result.message
+						});
+					} else {
+						$.messager.show({
+							title: '成功',
+							msg: result.message
+						});
+						let rowData = {
+							'server_id': '',
+							'message_content': ''
+						};
+						$('#fm').form('load', rowData);
+						$dlg.dialog('close');        // close the dialog
+						$dlg.datagrid('reload');    // reload the user data
+					}
+				}
+			});
+		}
+
+		//踢用户下线
+		function closeServer() {
+			let row = $dg.datagrid('getSelected');
+			if(row == null){
+				$.messager.show({
+					title: '错误',
+					msg: "无数据选中"
+				});
+				return false;
+			}
+			$.messager.confirm('Confirm', '确定关闭服务器?', function (r) {
+				if(r){
+					let rowServerId = row['ServerId'];
+					$.post('/api/server/closeServer', {server_id: rowServerId}, function (result) {
+						if(result.code){
+							$.messager.show({    // show error message
+								title: '错误',
+								msg: result.message
+							});
+							$dg.datagrid('reload');    // reload the user data
+						} else {
+							$.messager.show({    // show error message
+								title: '成功',
+								msg: result.message
+							});
+						}
+					}, 'json');
+				}
+			});
+		}
+	</script>
+
+{{end}}

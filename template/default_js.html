@@ -1,0 +1,45 @@
+{{ define "default_js"}}
+
+	<script type="text/javascript" src="/static/layui/layui.all.js"></script>
+	<script type="text/javascript" src="/static/seajs/sea.js"></script>
+	<script type="text/javascript" src="/static/seajs/config.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+	<script type="text/javascript">
+		//获取Query值
+		function getQueryVariable(variable)
+		{
+			let query = window.location.search.substring(1);
+			let vars = query.split('&');
+			for (let i=0;i<vars.length;i++) {
+				let pair = vars[i].split('=');
+				if(pair[0] === variable){
+					return pair[1];
+				}
+			}
+			return "";
+		}
+	</script>
+		<!--
+	<script type="text/javascript">
+		window.UPLOAD_URL = '/common/uploadImg';
+		seajs.use('ywj/auto');
+	</script>
+	<script type="text/javascript">
+		let ref=getQueryVariable('ref');
+		let inIFrame = ref === 'iframe';
+		if(inIFrame){
+			seajs.use(["jquery", "ywj/msg"], function ($, Msg) {
+				$(document).ready(function () {
+					$("#header").hide();
+					$("#col-aside").hide();
+				});
+			});
+		}
+	</script>
+	-->
+
+{{end}}

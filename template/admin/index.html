@@ -1,0 +1,17 @@
+{{template "layout2" .}}
+
+{{define "title"}}
+	首页
+{{end}}
+
+{{ define "container_content" }}
+	<table class="easyui-datagrid" title="客户端列表" style="width:700px;height:250px"
+	       data-options="singleSelect:true,collapsible:true,url:'/api/client/getAll',method:'get'">
+		<thead>
+		<tr>
+			<th data-options="field:'ClientId'">Client ID</th>
+			<th data-options="field:'ServerId'">Server ID</th>
+		</tr>
+		</thead>
+	</table>
+{{end}}

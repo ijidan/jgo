@@ -1,0 +1,17 @@
+package main
+
+import (
+	jdatabase "jgo/protected/jgo/jrabbitmq"
+	"time"
+)
+
+func main() {
+	time.Sleep(time.Minute)
+	jr := jdatabase.NewJRabbit()
+	go func() {
+		_ = jr.ReceiveMessage("jidan_q_1", true)
+		//main阻塞
+	}()
+	ch := make(chan struct{})
+	<-ch
+}

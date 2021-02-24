@@ -1,0 +1,18 @@
+//package bin
+
+//
+//import (
+//	"jgo/protected/jgo/jetcd"
+//)
+//
+//func test()  {
+//	var endpoints = []string{"www.jgo.com:80",}
+//	sr:=jetcd.NewServiceRegister(endpoints,5,"/service/hello","127.0.0.1:50052")
+//	//监听租约
+//	go func() {
+//		_ = sr.ListLeaseKeepAliveChan()
+//	}()
+//
+//    //阻塞
+//	<-make(chan struct{})
+//}

@@ -1,0 +1,20 @@
+{
+  "db_conf":{
+	"default":{
+	  "host":"",
+	  "port":3306,
+	  "dbName":"",
+	  "username":"",
+	  "password":""
+	}
+  },
+  "redis_conf":{
+	"default":{
+	  "host":"192.168.33.10",
+	  "port":6379,
+	  "dbName":0,
+	  "password":""
+	}
+  }
+}
+

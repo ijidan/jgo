@@ -1,0 +1,145 @@
+{{template "layout1" .}}
+{{define "title"}}
+	聊天
+{{end}}
+{{define "header_css"}}
+	<style type="text/css">
+		html {
+			overflow:hidden;
+		}
+
+		body {
+			overflow:hidden;
+			padding:0;
+			margin:0;
+			width:100%;
+			height:100%;
+			background:gray;
+		}
+
+		#log {
+			background:white;
+			margin:0;
+			padding:0.5em 0.5em 0.5em 0.5em;
+			position:absolute;
+			top:0.5em;
+			left:0.5em;
+			right:0.5em;
+			bottom:3em;
+			overflow:auto;
+			width:50%;
+		}
+
+		#form {
+			padding:0 0.5em 0 0.5em;
+			margin:0;
+			position:absolute;
+			bottom:1em;
+			left:0;
+			width:100%;
+			height:100px;
+			overflow:hidden;
+		}
+
+		#msg {
+			margin-left:50px;
+			width:800px;
+			height:50px;
+		}
+
+		#send {
+			width:50px;
+			height:30px;
+		}
+
+	</style>
+
+{{end}}
+
+{{define "main_content"}}
+	<div id="log"></div>
+	<form id="form">
+		<input type="text" id="msg" size="64" autofocus/>
+		<input type="submit" id="send" value="Send"/>
+	</form>
+{{end}}
+
+{{define "footer_js"}}
+	<script>
+		//一般直接写在一个js文件中
+		layui.use(['jquery', 'layer', 'form'], function () {
+			var layer = layui.layer
+			var form = layui.form;
+			var $ = layui.jquery;
+
+			//处理websocket
+			$(document).ready(function () {
+				var conn;
+				var msg = document.getElementById("msg");
+				var log = document.getElementById("log");
+
+				//添加记录
+				function appendLog(item) {
+					var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
+					log.appendChild(item);
+					if(doScroll){
+						log.scrollTop = log.scrollHeight - log.clientHeight;
+					}
+				}
+
+				//生成
+				function genLogItem(user, message) {
+					var item = document.createElement("div");
+					item.innerHTML = "<span style='color:red;'>" + user + "</span>：" + message;
+					return item
+				}
+
+				//表单提交
+				document.getElementById("form").onsubmit = function () {
+					if(!conn){
+						return false;
+					}
+					if(!msg.value){
+						return false;
+					}
+					conn.send(msg.value);
+					item = genLogItem("我", msg.value);
+					appendLog(item);
+					msg.value = "";
+					return false;
+				};
+				if(window["WebSocket"]){
+					conn = new WebSocket("ws://" + document.location.host + ":9999/");
+					//连接成功
+					conn.onopen = function () {
+						layer.msg("open");
+					}
+					//关闭
+					conn.onclose = function (evt) {
+						var item = document.createElement("div");
+						item.innerHTML = "<b>Connection closed.</b>";
+						appendLog(item);
+					};
+					//错误
+					conn.onerror = function (e) {
+						//如果出现连接、处理、接收、发送数据失败的时候触发onerror事件
+						console.log(error);
+					};
+					conn.onmessage = function (evt) {
+						var messages = evt.data.split('\n');
+						for (var i = 0; i < messages.length; i++) {
+							item = genLogItem("服务端", messages[i]);
+							appendLog(item);
+						}
+					};
+				} else {
+					var item = document.createElement("div");
+					item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
+					appendLog(item);
+				}
+			});
+			layer.msg('Hello World');
+		});
+	</script>
+
+{{end}}

@@ -1,0 +1,16 @@
+* {
+	font-size:30px;
+	font-weight:bold;
+}
+
+#header {
+	background-color:red
+}
+
+#main {
+	background-color:yellow;
+}
+
+#footer {
+	background-color:blue;
+}

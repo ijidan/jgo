@@ -1,0 +1,23 @@
+{{define "layout1"}}
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{block "title".}}title{{end}}</title>
+
+        {{ template "default_css"}}
+
+		{{block "header_css".}}{{end}}
+
+		{{ template "default_js"}}
+
+        {{block "header_js".}}{{end}}
+	</head>
+	<body class="easyui-layout">
+    {{ block "main_content".}}{{end}}
+	</body>
+    {{ block "footer_css". }}{{end}}
+    {{block "footer_js".}}{{end}}
+	{{block "footer_js2".}}{{end}}
+	</html>
+{{end}}
