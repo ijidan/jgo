@@ -51,8 +51,14 @@ func (c *Common) handleParam(param map[string]string) map[string]interface{} {
 }
 
 //计算签名
+//计算签名
 func (c *Common) computeSign(param map[string]string) string {
-	return ""
+	sortedParam := jutils.KSort(param)
+	str := sortedParam + signSalt
+	data := []byte(str)
+	has := md5.Sum(data)
+	md5str := fmt.Sprintf("%x", has) //将[]byte转成16进制
+	return md5str
 }
 
 //设置请求参数

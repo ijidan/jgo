@@ -3,7 +3,6 @@ package jetcd
 import (
 	"context"
 	"github.com/coreos/etcd/clientv3"
-	"github.com/coreos/etcd/mvcc/mvccpb"
 	"github.com/ijidan/jgo/jgo/jlogger"
 	"sync"
 	"time"
@@ -40,7 +39,9 @@ func (sd *ServiceDiscovery) WatchService(prefix string) error {
 	for _, kv := range rsp.Kvs {
 		_ = sd.setService(string(kv.Key), string(kv.Value))
 	}
-	go sd.doWatchService(prefix)
+	go func() {
+		_ = sd.doWatchService(prefix)
+	}()
 	return nil
 }
 
@@ -52,11 +53,9 @@ func (sd *ServiceDiscovery) doWatchService(prefix string) error {
 			kv := event.Kv
 			key := string(kv.Key)
 			value := string(kv.Value)
+			_ = sd.setService(key, value)
 			switch event.Type {
-			case mvccpb.PUT:
-				_ = sd.setService(key, value)
-			case mvccpb.DELETE:
-				_ = sd.setService(key, value)
+
 			}
 		}
 	}

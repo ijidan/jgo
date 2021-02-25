@@ -1,12 +1,12 @@
 package main
 
 import (
-	jdatabase "jgo/protected/jgo/jrabbitmq"
+	"github.com/ijidan/jgo/jgo/jrabbitmq"
 	"strconv"
 )
 
 func main()  {
-	jr:=jdatabase.NewJRabbit()
+	jr:=jrabbitmq.NewJRabbit()
 	//发送消息
 	cnt:=100
 	for i:=1;i<=cnt;i++{

@@ -1,4 +1,4 @@
-package jdatabase
+package jrabbitmq
 
 import (
 	"fmt"

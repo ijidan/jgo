@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	consulApi "github.com/hashicorp/consul/api"
+	"github.com/ijidan/jgo/jgo/jlogger"
 )
 
 const Address = "192.168.33.10"

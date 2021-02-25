@@ -1,6 +1,6 @@
 package jetcd
 
-import "jgo/protected/jgo/jnet"
+import "github.com/ijidan/jnet/jnet"
 
 //响应类
 type Response struct {

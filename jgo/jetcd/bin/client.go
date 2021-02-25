@@ -1,7 +1,7 @@
 package main
 
 import (
-	"jgo/protected/jgo/jetcd"
+	"github.com/ijidan/jgo/jgo/jetcd"
 	"log"
 	"time"
 )
