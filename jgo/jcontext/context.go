@@ -302,7 +302,7 @@ func (c *Context) getStaticDir() string {
 func (c *Context) getProtectedDir() string {
 	wd, _ := os.Getwd()
 	pathSep := c.getPathSep()
-	protectedPath := wd + pathSep + "protected" + pathSep
+	protectedPath := wd + pathSep
 	return protectedPath
 }
 

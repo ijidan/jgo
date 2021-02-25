@@ -17,11 +17,12 @@ require (
 	github.com/hashicorp/go-hclog v0.15.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
-	github.com/ijidan/jnet v0.0.0-20210225015115-4fe659c6fb66 // indirect
-	github.com/ijidan/jproto v0.0.0-20210225015102-4006432a33ff // indirect
-	github.com/ijidan/jws v0.0.0-20210225015022-ea1305f79123 // indirect
+	github.com/ijidan/jnet v0.0.0-20210225015115-4fe659c6fb66
+	github.com/ijidan/jproto v0.0.0-20210225062613-c37182d0df50
+	github.com/ijidan/jws v0.0.0-20210225015022-ea1305f79123
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.8.0
 	github.com/streadway/amqp v1.0.0
