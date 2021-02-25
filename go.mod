@@ -19,7 +19,7 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/ijidan/jnet v0.0.0-20210225015115-4fe659c6fb66
 	github.com/ijidan/jproto v0.0.0-20210225083814-d6f9a2aa567d
-	github.com/ijidan/jws v0.0.0-20210225015022-ea1305f79123
+	github.com/ijidan/jws v0.0.0-20210225094644-e73702c78675
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1 // indirect
@@ -34,7 +34,7 @@ require (
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/net v0.0.0-20210224082022-3d97a244fca7 // indirect
-	golang.org/x/sys v0.0.0-20210225080010-8e9945a5478f // indirect
+	golang.org/x/sys v0.0.0-20210225091947-4ada9433c6ea // indirect
 	google.golang.org/genproto v0.0.0-20210224155714-063164c882e6 // indirect
 	google.golang.org/grpc v1.36.0
 	google.golang.org/protobuf v1.25.0 // indirect

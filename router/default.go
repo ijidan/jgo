@@ -63,7 +63,7 @@ func Registry() {
 }
 
 //HTTP开启
-const staticPath = "protected/static/"
+const staticPath = "static/"
 const staticUrlPrefix = "/static/"
 
 

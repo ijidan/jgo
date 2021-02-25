@@ -109,23 +109,30 @@
 					return false;
 				};
 				if(window["WebSocket"]){
-					conn = new WebSocket("ws://" + document.location.host + ":9999/");
+					conn = new WebSocket("ws://" + document.location.hostname + ":9999/");
 					//连接成功
 					conn.onopen = function () {
+						console.info('111');
 						layer.msg("open");
 					}
 					//关闭
 					conn.onclose = function (evt) {
+						console.info('222');
+
 						var item = document.createElement("div");
 						item.innerHTML = "<b>Connection closed.</b>";
 						appendLog(item);
 					};
 					//错误
 					conn.onerror = function (e) {
+						console.info('333');
+
 						//如果出现连接、处理、接收、发送数据失败的时候触发onerror事件
 						console.log(error);
 					};
 					conn.onmessage = function (evt) {
+						console.info('444');
+
 						var messages = evt.data.split('\n');
 						for (var i = 0; i < messages.length; i++) {
 							item = genLogItem("服务端", messages[i]);
@@ -133,11 +140,15 @@
 						}
 					};
 				} else {
+					console.info('5555');
+
 					var item = document.createElement("div");
 					item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
 					appendLog(item);
 				}
 			});
+			console.info('666');
+
 			layer.msg('Hello World');
 		});
 	</script>
