@@ -20,11 +20,10 @@ func (c *IndexController) Call(ctx *jcontext.Context) {
 	//req := map[string]string{"name": param}
 	//replay := mapData
 
-
+	mapData := make(map[string]interface{})
 	param := "jidan"
 	hello := call.HelloCall{}
 	data, _ := hello.SayHello(param)
-	mapData := make(map[string]interface{})
 	mapData["result"] = data
 
 	//span.SetTag("request", "req:name:jidan")
